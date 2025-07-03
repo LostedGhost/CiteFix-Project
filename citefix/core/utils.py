@@ -17,4 +17,4 @@ def save_file(file, dir):
             for chunk in file.chunks():
                 dest.write(chunk)
                 
-        return f"{dir}/{filename}"
+        return f"/media/{dir}/{filename}"

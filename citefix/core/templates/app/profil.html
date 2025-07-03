@@ -9,24 +9,21 @@ Profil
                     <div class="col-12 col-xl-4">
                     <div class="card mb-5">
                         <div class="card-header hover-actions-trigger position-relative mb-6" style="min-height: 130px; ">
-                        <div class="bg-holder rounded-top" style="background-image: linear-gradient(0deg, #000000 -3%, rgba(0, 0, 0, 0) 83%), url(../../assets/img/generic/59.png)">
+                        <div class="bg-holder rounded-top" style="background-image: linear-gradient(0deg, #000000 -3%, rgba(0, 0, 0, 0) 83%), url({% static '/assets/img/generic/59.png' %})">
                             <div class="hover-actions end-0 bottom-0 pe-1 pb-2 text-white dark__text-gray-1100"></div>
                         </div>
                         <label class="avatar avatar-4xl status-online feed-avatar-profile" for="upload-settings-porfile-picture">
-                            <img class="rounded-circle img-thumbnail shadow-sm border-0" src="{%if user.photo_profil %} {{ user.photo_profil }} {%else%} {% static 'assets/img/team/profil_user.png' %} {%endif%}" width="300" alt="" /></label>
+                            <img class="rounded-circle img-thumbnail shadow-sm border-0" src="{%if user.photo_profil %}{{ user.photo_profil }} {%else%} {% static 'assets/img/team/profil_user.png' %} {%endif%}" width="300" alt="" /></label>
                         </div>
                         <div class="card-body">
                         <div class="row">
                             <div class="col-12">
                             <div class="d-flex flex-wrap mb-2 align-items-center">
-                                <h3 class="me-2">{{user.prenom}} {{user.nom}} </h3><span class="fw-normal fs-8">{{user.role.label}}</span>
+                                <h3 class="me-2">{{user.prenom}} {{user.nom}} </h3><span class="fw-normal fs-8">{{user.role}}</span>
                             </div>
                             <div class="d-flex d-xl-block d-xxl-flex align-items-center">
                                 <div class="d-flex mb-xl-2 mb-xxl-0"><span class="fa-solid fa-user-group fs-10 me-2 me-lg-1 me-xl-2"></span>
-                                <h6 class="d-inline-block mb-0">{{user.nb_offres}}<span class="fw-semibold ms-1 me-4">Offres</span></h6>
-                                </div>
-                                <div class="d-flex"><span class="fa-solid fa-user-check fs-10 me-2 me-lg-1 me-xl-2"></span>
-                                <h6 class="d-block d-xl-inline-block mb-0">{{user.nb_demandes}}<span class="fw-semibold ms-1">Demandes</span></h6>
+                                <h6 class="d-inline-block mb-0">{{user.nb_plaintes}}<span class="fw-semibold ms-1 me-4">Plaintes</span></h6>
                                 </div>
                             </div>
                             </div>
@@ -62,28 +59,17 @@ Profil
                                     </div>
                                     </div>
 
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12 col-sm-12">
                                     <div class="form-icon-container">
                                         <div class="form-floating">
-                                            <input class="form-control form-icon-input" name="date_naissance" type="date" placeholder="XX-XX-XXXX" value="{{user.date_naissance}}"/>
+                                            <input class="form-control form-icon-input" name="date_naissance" type="date" placeholder="XX-XX-XXXX" value="{{user.date_naissance_str}}"/>
                                             <label class="text-body-tertiary form-icon-label">Date de naissance</label>
                                         </div>
                                         <span class="fa-solid fa-user text-body fs-9 form-icon"></span>
                                     </div>
                                     </div>
-                                    
 
-                                    <div class="col-12 col-sm-6">
-                                    <div class="form-icon-container">
-                                        <div class="form-floating">
-                                            <input class="form-control form-icon-input" name="date_naissance" type="date" placeholder="XX-XX-XXXX" value="{{user.date_naissance}}"/>
-                                            <label class="text-body-tertiary form-icon-label">Lieu de résidence</label>
-                                        </div>
-                                        <span class="fa-solid fa-user text-body fs-9 form-icon"></span>
-                                    </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12 col-sm-12">
                                         <div class="form-icon-container">
                                             <div class="form-floating">
                                                 <textarea class="form-control form-icon-input" id="info" style="height: 115px;" placeholder="Info" name="bio">{%if user.bio %}{{user.bio}}{%endif%}</textarea>
@@ -129,63 +115,6 @@ Profil
                                 </div>
                             </form>
                         </div>
-                        </div>
-                    </div>
-                    <div class="row gy-5">
-                        <div class="col-12 col-md-6 ">
-                        <h4 class="text-body-emphasis">Véhicule</h4>
-                        <form method="post">
-                            {%csrf_token%}
-                            <div class="form-icon-container mb-3">
-                                <div class="form-floating">
-                                    <input class="form-control form-icon-input" name="marque" type="text" placeholder="Marque du véhicule" {%if user.vehicule %} value="{{user.vehicule.marque}}" {%endif%} />
-                                    <label class="text-body-tertiary form-icon-label" for="oldPassword">Marque du véhicule</label>
-                                </div>
-                                <span class="fa-solid fa-mark text-body fs-9 form-icon"></span>
-                            </div>
-                            <div class="form-icon-container mb-3">
-                                <div class="form-floating">
-                                    <input class="form-control form-icon-input" name="modele" type="text" placeholder="Modèle du véhicule" {%if user.vehicule %} value="{{user.vehicule.modele}}" {%endif%} />
-                                    <label class="text-body-tertiary form-icon-label" for="oldPassword">Modèle du véhicule</label>
-                                </div>
-                                <span class="fa-solid fa-car text-body fs-9 form-icon"></span>
-                            </div>
-                            <div class="form-icon-container mb-3">
-                                <div class="form-floating">
-                                    <input class="form-control form-icon-input" name="nb_place" type="number" min="0" placeholder="Nombre de places" {%if user.vehicule %} value="{{user.vehicule.nb_place}}" {%endif%} />
-                                    <label class="text-body-tertiary form-icon-label">Nombre de places</label>
-                                </div>
-                                <span class="fa-solid fa-0 text-body fs-9 form-icon"></span>
-                            </div>
-                            <div class="text-center">
-                                <button class="btn btn-phoenix-secondary me-2 mt-3" type="reset">Annuler</button>
-                                <button type="submit" class="btn btn-phoenix-primary mt-3"><span class="fa fa-pencil"></span> Modifier</button>
-                            </div>
-                            
-                        </form>
-                        
-                        </div>
-                        <div class="col-12 col-md-6 ">
-                        <h4 class="text-body-emphasis">ROLE</h4>
-                        <form method="post">
-                            {%csrf_token%}
-                            <div class="mb-3 text-start">
-                                <label class="form-label" for="role">Rôle</label>
-                                <select class="form-select" aria-label="" name="role">
-                                    <option selected="">Faites le choix de votre rôle par défaut</option>
-                                    {%for role in roles%}
-                                    <option value="{{role.id}}" {%if user.role.id == role.id %} selected {%endif%} >{{role.label}}</option>
-                                    {%endfor%}
-                                </select>
-                                
-                            </div>
-                            <div class="text-center">
-                                <button class="btn btn-phoenix-secondary me-2 mt-3" type="reset">Annuler</button>
-                                <button type="submit" class="btn btn-phoenix-primary mt-3"><span class="fa fa-pencil"></span> Changer de rôle</button>
-                            </div>
-                            
-                        </form>
-                        
                         </div>
                     </div>
                     </div>
